@@ -1,9 +1,10 @@
 from pydantic_settings import BaseSettings
+from pathlib import Path
 
 
 class _BaseSettingsWithEnv(BaseSettings):
-    # 配置读取方式
-    model_config = {"env_file": ".env"}  # env文件的位置
+    # 配置读取方式：使用向上查找到的 .env 绝对路径
+    model_config = {"env_file":'.env', "extra": "ignore"}
 
 
 # 通用配置
