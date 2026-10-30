@@ -1,4 +1,3 @@
-# model/association/__init__.py
-from app.model.association.product_category import product_category
-
-__all__ = ["product_category"]
+from app.model import product  # noqa
+from app.model import category  # noqa
+from app.model import sku  # noqa
