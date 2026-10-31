@@ -14,7 +14,5 @@ app = FastAPI(
 
 
 from app.api.welcome import router as welcome_router
-from app.api.items import router as items_router
 
 app.include_router(welcome_router)
-app.include_router(items_router)
