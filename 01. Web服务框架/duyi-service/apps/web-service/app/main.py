@@ -1,7 +1,7 @@
-# apps/web-service/main.py
-
 from fastapi import FastAPI
+
 from app.core.config import common_settings, web_settings
+from app.exception.base import BusinessException
 
 app = FastAPI(
     title=web_settings.app_name,
@@ -12,7 +12,11 @@ app = FastAPI(
     ),
 )
 
+# 注册路由
+from app.api.products import router as product_router
+from app.api.categories import router as category_router
+from app.api.skus import router as sku_router
 
-from app.api.welcome import router as welcome_router
-
-app.include_router(welcome_router)
+app.include_router(product_router)
+app.include_router(category_router)
+app.include_router(sku_router)
