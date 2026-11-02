@@ -40,5 +40,5 @@ async def exception_handler(request: Request, exc: Exception) -> JSONResponse:
 
     return JSONResponse(
         status_code=http_status,
-        content={"code": code, "message": body_msg},
+        content={"code": code, "message": body_msg, "data": None},
     )
