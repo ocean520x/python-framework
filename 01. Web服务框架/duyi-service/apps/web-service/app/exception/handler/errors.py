@@ -11,9 +11,9 @@ from app.exception.not_found import NotFoundException
 
 ERROR_MAP: dict[type, tuple[str, int, str]] = {
     RequestValidationError: ("422001", 422, "数据验证错误"),
-    DatabaseException:      ("422001", 422, "数据验证错误"),
-    NotFoundException:      ("404001", 404, "资源不存在"),
-    Exception:              ("500001", 500, "服务器内部错误"),
+    DatabaseException: ("422002", 422, "数据验证错误"),
+    NotFoundException: ("404001", 404, "资源不存在"),
+    Exception: ("500001", 500, "服务器内部错误"),
 }
 
 

@@ -10,6 +10,10 @@ async def unified_response(request: Request, call_next):
     if not request.url.path.startswith("/api/"):
         return response
 
+    # 204 No Content 无响应体，直接返回，不做统一包装
+    if response.status_code == 204:
+        return response
+
     body = b""
     async for chunk in response.body_iterator:
         body += chunk
