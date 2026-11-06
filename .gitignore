@@ -10,6 +10,8 @@ __pycache__
 
 # env
 .env
+.env.test
+
 
 # frontend
 node_modules
@@ -24,3 +26,8 @@ build/
 
 # db
 .db
+
+# test
+.coverage
+.coverage.*
+htmlcov/
