@@ -48,8 +48,10 @@ from app.api.products import router as product_router
 from app.api.categories import router as category_router
 from app.api.skus import router as sku_router
 from app.api.settings import router as settings_router
+from app.api.upload import router as upload_router
 
 app.include_router(product_router)
 app.include_router(category_router)
 app.include_router(sku_router)
 app.include_router(settings_router)
+app.include_router(upload_router)

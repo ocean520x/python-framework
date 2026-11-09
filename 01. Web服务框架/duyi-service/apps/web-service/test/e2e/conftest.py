@@ -146,6 +146,9 @@ async def async_client():
         yield client
 
 
+_SKIP_CLEANUP_TABLES = {"settinggroup", "setting"}
+
+
 @pytest.fixture(autouse=True)
 async def cleanup_db(async_client):
     yield
@@ -162,6 +165,8 @@ async def cleanup_db(async_client):
 
     async with engine.begin() as conn:
         for table in reversed(Base.metadata.sorted_tables):
+            if table.name in _SKIP_CLEANUP_TABLES:
+                continue
             await conn.execute(
                 text(f'TRUNCATE TABLE "{table.name}" RESTART IDENTITY CASCADE')
             )

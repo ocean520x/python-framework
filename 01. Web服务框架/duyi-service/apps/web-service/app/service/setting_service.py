@@ -169,6 +169,8 @@ class SettingService(BaseService):
             .order_by(SettingGroup.id)
         )
         groups = result.unique().scalars().all()
+        for g in groups:
+            g.settings.sort(key=lambda s: s.id)
         return [SettingGroupResponse.model_validate(g) for g in groups]
 
     async def update_settings(
