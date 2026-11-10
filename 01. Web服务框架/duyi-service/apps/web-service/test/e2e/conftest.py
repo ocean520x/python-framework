@@ -146,6 +146,28 @@ async def async_client():
         yield client
 
 
+REGISTER_URL = "/api/auth/register"
+LOGIN_URL = "/api/auth/login"
+
+
+async def _register_and_login(client) -> str:
+    await client.post(
+        REGISTER_URL,
+        json={"username": "e2etestuser", "password": "test123456"},
+    )
+    resp = await client.post(
+        LOGIN_URL,
+        json={"username": "e2etestuser", "password": "test123456"},
+    )
+    return resp.json()["data"]["access_token"]
+
+
+@pytest.fixture
+async def auth_headers(async_client):
+    token = await _register_and_login(async_client)
+    return {"Authorization": f"Bearer {token}"}
+
+
 _SKIP_CLEANUP_TABLES = {"settinggroup", "setting"}
 
 

@@ -1,6 +1,6 @@
 # Makefile
 
-.PHONY: dev debug test test-unit test-integration test-e2e test-smoke test-html db-migrate db-upgrade db-downgrade
+.PHONY: dev debug test test-unit test-integration test-e2e test-smoke test-html test-changed db-migrate db-upgrade db-downgrade
 
 dev:
 	export PYTHONDONTWRITEBYTECODE=1; \
@@ -29,8 +29,10 @@ test-e2e:
 
 test-smoke:
 	uv run pytest apps/web-service/test/e2e/ -q -m smoke
-	uv run pytest packages/duyi-utils/test/ apps/web-service/test/unit/ apps/web-service/test/integration/ -q -m smoke
-	
+	uv run pytest packages/duyi-utils/test/ apps/web-service/test/integration/ -q -m smoke
+
+test-changed:
+	uv run python scripts/run_changed_tests.py
 
 db-migrate:
 	uv run --package web-service alembic -c apps/web-service/alembic.ini revision --autogenerate -m "$(message)"

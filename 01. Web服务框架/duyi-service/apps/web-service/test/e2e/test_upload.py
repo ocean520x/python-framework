@@ -5,6 +5,8 @@ from httpx import AsyncClient
 
 UPLOAD_SIGN_URL = "/api/upload/sign"
 SETTINGS_URL = "/api/settings"
+REGISTER_URL = "/api/auth/register"
+LOGIN_URL = "/api/auth/login"
 
 
 def _oss_settings_payload() -> list[dict]:
@@ -23,10 +25,16 @@ def _oss_settings_payload() -> list[dict]:
     ]
 
 
+async def _setup_oss_settings(client: AsyncClient, auth_headers: dict) -> None:
+    await client.put(SETTINGS_URL, headers=auth_headers, json=_oss_settings_payload())
+
+
 class TestUploadSign:
     @pytest.mark.smoke
-    async def test_post_returns_credentials(self, async_client: AsyncClient):
-        await async_client.put(SETTINGS_URL, json=_oss_settings_payload())
+    async def test_post_returns_credentials(
+        self, async_client: AsyncClient, auth_headers: dict
+    ):
+        await _setup_oss_settings(async_client, auth_headers)
 
         response = await async_client.post(
             UPLOAD_SIGN_URL,
@@ -44,8 +52,10 @@ class TestUploadSign:
         assert data["content_type"] == "image/png"
         assert "bucket_domain" in data
 
-    async def test_non_image_rejected(self, async_client: AsyncClient):
-        await async_client.put(SETTINGS_URL, json=_oss_settings_payload())
+    async def test_non_image_rejected(
+        self, async_client: AsyncClient, auth_headers: dict
+    ):
+        await _setup_oss_settings(async_client, auth_headers)
 
         response = await async_client.post(
             UPLOAD_SIGN_URL,

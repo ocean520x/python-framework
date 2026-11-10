@@ -7,9 +7,12 @@ requires-python = ">=3.14"
 dependencies = [
     "alembic==1.18.4",
     "asyncpg==0.31.0",
+    "bcrypt>=4.0.0",
+    "duyi-utils",
     "fastapi[standard]==0.136.3",
     "psycopg2-binary==2.9.12",
     "pydantic-settings==2.14.1",
+    "pyjwt>=2.0.0",
     "sqlalchemy[asyncio]==2.0.50",
 ]
 
@@ -17,19 +20,8 @@ dependencies = [
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+[tool.uv.sources]
+duyi-utils = { workspace = true }
+
 [tool.hatch.build.targets.wheel]
 packages = ["app/"]
-
-[dependency-groups]
-dev = [
-    "httpx==0.28.1",
-    "pytest==9.1.1",
-    "pytest-asyncio==1.4.0",
-    "pytest-cov==7.0.0",
-]
-
-
-[tool.pytest.ini_options]
-asyncio_mode = "auto"
-testpaths = ["test"]
-markers = ["smoke: 标记为冒烟测试，验证核心流程是否正常"]
