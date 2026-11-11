@@ -23,6 +23,7 @@ def _format_validation_error(err: dict) -> str:
 
 
 async def exception_handler(request: Request, exc: Exception) -> JSONResponse:
+    request.state.exception_handled = True
     if isinstance(exc, HTTPException):
         code = str(exc.status_code)
         http_status = exc.status_code

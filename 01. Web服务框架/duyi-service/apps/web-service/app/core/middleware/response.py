@@ -7,7 +7,9 @@ from fastapi.responses import JSONResponse
 async def unified_response(request: Request, call_next):
     response = await call_next(request)
 
-    if not request.url.path.startswith("/api/"):
+    if not request.url.path.startswith("/api/") or getattr(
+        request.state, "exception_handled", False
+    ):
         return response
 
     # 204 No Content 无响应体，直接返回，不做统一包装
