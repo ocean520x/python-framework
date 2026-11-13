@@ -28,6 +28,14 @@ class DBSettings(BaseSettingsWithEnv):
     model_config = {"env_prefix": "DB_"}
 
 
+class LogSettings(BaseSettingsWithEnv):
+    level: str = "INFO"  # DEBUG / INFO / WARNING / ERROR
+    slow_query_threshold: float = 200  # 毫秒
+
+    model_config = {"env_prefix": "LOG_"}
+
+
 common_settings = CommonSettings()
 web_settings = WebSettings()
 db_settings = DBSettings()
+log_settings = LogSettings()

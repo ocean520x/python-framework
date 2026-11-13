@@ -10,11 +10,17 @@ from app.model.setting import Setting
 from app.model.user import User
 from app.schema.user import UserLogin, UserRegister, TokenResponse, UserResponse
 from app.service.base import BaseService
+from app.core.logger import BusinessLog, service_logger
 from duyi_utils.auth.jwt_util import create_token
 from duyi_utils.auth.password import hash_password, verify_password
 
 
 class UserService(BaseService):
+    @service_logger(
+        action="用户注册",
+        entity="User",
+        id_extractor=lambda args, kwargs, result: str(result.id),
+    )
     async def register(self, data: UserRegister) -> UserResponse:
         existing = await self.db.scalar(
             select(User).where(User.username == data.username)
@@ -63,6 +69,5 @@ class UserService(BaseService):
     ) -> None:
         if not verify_password(old_password, user.password_hash):
             raise AuthException(message="修改密码失败：原密码错误")
-
         user.password_hash = hash_password(new_password)
         await self.db.flush()

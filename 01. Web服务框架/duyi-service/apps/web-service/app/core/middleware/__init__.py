@@ -2,12 +2,13 @@ import inspect
 
 from fastapi import FastAPI
 
-from app.core.middleware import response, process_time, cors
+from app.core.middleware import response, process_time, cors, logging
 
 MIDDLEWARES = [
     process_time.MIDDLEWARE,
+    logging.MIDDLEWARE,
     cors.MIDDLEWARE,
-    response.MIDDLEWARE
+    response.MIDDLEWARE,
 ]
 
 

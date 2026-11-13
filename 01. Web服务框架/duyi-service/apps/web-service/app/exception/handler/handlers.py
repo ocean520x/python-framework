@@ -39,6 +39,15 @@ async def exception_handler(request: Request, exc: Exception) -> JSONResponse:
         else:
             body_msg = default_msg
 
+    # 日志记录
+    log = request.state.request_log
+    if log:
+        log.message = f"请求异常: {body_msg}"
+        if http_status == 500:
+            log.error(exc=exc)
+        else:
+            log.warning()
+
     return JSONResponse(
         status_code=http_status,
         content={"code": code, "message": body_msg, "data": None},

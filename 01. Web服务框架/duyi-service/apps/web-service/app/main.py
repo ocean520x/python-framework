@@ -1,16 +1,25 @@
+import logging
+
 from contextlib import asynccontextmanager
 from collections.abc import AsyncIterator
+
+logging.getLogger("uvicorn.error").disabled = True
+logging.getLogger("uvicorn.access").disabled = True
 
 from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
 from starlette.exceptions import HTTPException
+from app.core.logger.log_record import setup_logging, LogRecord
 from app.core.middleware import register_middleware
-from app.core.config import common_settings, web_settings
+from app.core.config import common_settings, log_settings, web_settings
 from app.core.database import get_session_factory
 from app.exception.handler.docs import generate_error_docs
 from app.exception.handler.handlers import exception_handler
 from app.core.openapi import setup_openapi
 from app.service.setting_service import SettingService
+
+# 初始化日志系统
+setup_logging()
 
 
 @asynccontextmanager
