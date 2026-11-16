@@ -59,6 +59,9 @@ from app.api.categories import router as category_router
 from app.api.skus import router as sku_router
 from app.api.settings import router as settings_router
 from app.api.upload import router as upload_router
+from app.api.ai import router as ai_router
+from app.api.ai_sse import router as ai_sse_router
+from app.api.ai_ws import router as ai_ws_router
 
 app.include_router(auth_router)
 app.include_router(product_router)
@@ -66,3 +69,6 @@ app.include_router(category_router)
 app.include_router(sku_router)
 app.include_router(settings_router)
 app.include_router(upload_router)
+app.include_router(ai_router)
+app.include_router(ai_sse_router)
+app.include_router(ai_ws_router)

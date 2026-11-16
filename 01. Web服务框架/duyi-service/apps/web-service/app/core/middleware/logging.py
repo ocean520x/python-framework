@@ -1,4 +1,5 @@
 import uuid
+from typing import Any
 
 from fastapi import Request
 
@@ -7,6 +8,7 @@ from app.core.logger.request_log import RequestLog
 
 
 async def logging_middleware(request: Request, call_next):
+    print("logging")
     request_id = str(uuid.uuid4())
     request_id_var.set(request_id)
 
@@ -17,10 +19,11 @@ async def logging_middleware(request: Request, call_next):
         client_ip=request.client.host if request.client else "unknown",
     )
     request.state.request_log = log
+
     response = await call_next(request)
     if not getattr(request.state, "exception_handled", False):
         log.success()
     return response
 
 
-MIDDLEWARE: tuple[object, dict[str, object]] = (logging_middleware, {})
+MIDDLEWARE: tuple[Any, dict[str, Any]] = (logging_middleware, {})

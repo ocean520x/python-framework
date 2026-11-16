@@ -1,4 +1,5 @@
 import time
+from typing import Any
 
 from fastapi import Request
 
@@ -10,4 +11,4 @@ async def process_time(request: Request, call_next):
     return response
 
 
-MIDDLEWARE: tuple[object, dict[str, object]] = (process_time, {})
+MIDDLEWARE: tuple[Any, dict[str, Any]] = (process_time, {})
