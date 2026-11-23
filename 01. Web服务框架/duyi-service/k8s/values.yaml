@@ -1,0 +1,24 @@
+environment: production
+logLevel: INFO
+
+image:
+  repository: crpi-hgn671qiiiw5syvp-vpc.cn-hongkong.personal.cr.aliyuncs.com/oceanduyiedu/ocean-duyi-service
+  tag: 0.1.0
+  pullPolicy: IfNotPresent
+
+imagePullSecrets:
+  - name: acr-registry-secret
+
+db:
+  host: pgm-j6c4rt361ga13qzx.rwlb.cnhk.rds.aliyuncs.com
+  port: '5432'
+  name: duyi_db
+  user: ocean
+
+log:
+  project: k8s-log-cdbefa083cbba4611aeb8d9940793107f
+  logstore: duyi-service-stdout
+
+secret:
+  dbPassword: ''
+  jwtSecretKey: ''

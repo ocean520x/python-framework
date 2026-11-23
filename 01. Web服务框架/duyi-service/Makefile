@@ -1,6 +1,6 @@
 # Makefile
 
-.PHONY: dev debug test test-unit test-integration test-e2e test-smoke test-html test-changed db-migrate db-upgrade db-downgrade
+.PHONY: dev debug test test-unit test-integration test-e2e test-smoke test-html test-changed db-migrate db-upgrade db-downgrade docker-build docker-push
 
 dev:
 	export PYTHONDONTWRITEBYTECODE=1; \
@@ -42,3 +42,9 @@ db-upgrade:
 
 db-downgrade:
 	uv run --package web-service alembic -c apps/web-service/alembic.ini downgrade $(version)
+
+docker-build:
+	docker build --platform linux/amd64 -t crpi-hgn671qiiiw5syvp.cn-hongkong.personal.cr.aliyuncs.com/oceanduyiedu/ocean-duyi-service:$(tag) .
+
+docker-push:
+	docker push crpi-hgn671qiiiw5syvp.cn-hongkong.personal.cr.aliyuncs.com/oceanduyiedu/ocean-duyi-service:$(tag)
