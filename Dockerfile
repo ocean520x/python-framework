@@ -1,5 +1,6 @@
+
 # 阶段1
-FROM python:3.14-slim AS builder
+FROM crpi-hgn671qiiiw5syvp.cn-hongkong.personal.cr.aliyuncs.com/oceanduyiedu/python:3.14-slim AS builder
 
 WORKDIR /app
 
@@ -16,7 +17,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --frozen --no-dev --no-editable --all-packages
 
 # 阶段2
-FROM python:3.14-slim
+FROM crpi-hgn671qiiiw5syvp.cn-hongkong.personal.cr.aliyuncs.com/oceanduyiedu/python:3.14-slim
 
 WORKDIR /app
 
