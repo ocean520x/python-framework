@@ -15,6 +15,7 @@ __pycache__
 
 # frontend
 node_modules
+dist
 
 # build
 __pycache__/
