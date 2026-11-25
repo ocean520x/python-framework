@@ -13,7 +13,7 @@ async def health() -> dict[str, str]:
     只检查 FastAPI 进程是否能响应请求，不依赖外部服务。
     K8s 每 30 秒调用一次，连续失败 3 次判定 Pod 死亡并重启。
     """
-    return {"status": "ok!!!"}
+    return {"status": "ok!!!", "version":"0.4.3"}
 
 
 @router.get("/health/ready")
